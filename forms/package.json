@@ -12,6 +12,7 @@
     "@types/react-dom": "^18.0.0",
     "antd": "^5.6.2",
     "fp-ts": "^2.16.0",
+    "hygen": "^6.2.11",
     "io-ts": "^2.2.20",
     "io-ts-types": "^0.5.19",
     "mobx-react-lite": "^3.4.3",

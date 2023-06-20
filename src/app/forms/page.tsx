@@ -32,9 +32,9 @@ export default function Forms() {
             hasEditAccess={hasEditAccess}
           />
         ))}
-        <div className="flex justify-center">
+        <div className="flex justify-end">
           <button
-            className="rounded-md bg-white py-2 px-5 tracking-wide text-gray-500 shadow"
+            className="rounded border border-gray-400 bg-white py-2 px-4 font-semibold text-gray-800 shadow hover:bg-gray-100"
             disabled={!title || !description || !questions.length}
             onClick={submitEditForm}
             type="button"

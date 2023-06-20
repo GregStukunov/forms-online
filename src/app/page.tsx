@@ -6,6 +6,7 @@ import { readFormsRealtimeFirestore } from '@/services/firebase/forms';
 import useAppState from '@/context';
 import { Question } from './forms/useForms';
 import Respondents from './Respondents';
+import ReactLoading from 'react-loading';
 
 export interface Form {
   id: string;
@@ -35,20 +36,40 @@ export default function Home() {
     return () => unsubscribe();
   }, [auth.isAuthenticated, auth.isPending, auth.userData.uid]);
 
-  return (
+  return !auth.isPending ? (
     <>
       <div className="p-4 sm:p-6 lg:p-8">
         <div className="container relative space-y-8">
-          <h5 className="text-lg font-semibold text-neutral-600">Последний опрос</h5>
-          {data.length ? (
-            <FormCardList forms={data} setShowRespondents={setShowRespondents} />
-          ) : (
-            <NoForm />
+          {!showRespondents && (
+            <>
+              <h5 className="text-lg font-semibold text-neutral-600">Последние опросы</h5>
+              {data.length ? (
+                <FormCardList forms={data} setShowRespondents={setShowRespondents} />
+              ) : (
+                <NoForm />
+              )}
+            </>
           )}
-          {showRespondents && <Respondents data={showRespondents} />}
+          {showRespondents && (
+            <>
+              <div>
+                <button
+                  className="rounded border border-gray-400 bg-white py-2 px-4 font-semibold text-gray-800 shadow hover:bg-gray-100"
+                  onClick={() => setShowRespondents(null)}
+                >
+                  Вернуться
+                </button>
+              </div>
+              <Respondents data={showRespondents} />
+            </>
+          )}
         </div>
       </div>
       <PlusButton />
     </>
+  ) : (
+    <div className="align-center flex justify-center p-4 sm:p-6 lg:p-8">
+      <ReactLoading color="orange" type={'spin'} />
+    </div>
   );
 }
